@@ -1,12 +1,10 @@
 ---
-layout: 예진 블로그
-title: 예진이 블로그
+layout: home
+title: Jekyll Gitbook Theme
 permalink: /
 ---
 
-예진이 블로그입니다.
-
-[![Jekyll Themes](https://img.shields.io/badge/featured%20on-JekyllThemes-red.svg)](https://jekyll-themes.com/jekyll-gitbook/)
+Make Jelly site have a GitBook look!
 
 ## Demo
 

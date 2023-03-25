@@ -1,188 +1,192 @@
----
-layout: home
-title: Jekyll Gitbook Theme
-permalink: /
----
+# 04. 변수
 
-Make Jelly site have a GitBook look!
+셀 하나의 크기는 1바이트(8비트)이며, 컴퓨터는 메모리 셀의 크기, 즉 1 바이트 단위로 데이터를 저장하거나 읽어들인다
 
-## Demo
+<u>변수: 메모리 공간 자체 or 메모리 공간 식별</u>
 
-Live demo on Github Pages: [https://sighingnow.github.io/jekyll-gitbook](https://sighingnow.github.io/jekyll-gitbook)
+식별자는 값이 아니라 메모리 주소를 기억하고 있다
 
-[![Jekyll Themes](https://img.shields.io/badge/featured%20on-JekyllThemes-red.svg)](https://jekyll-themes.com/jekyll-gitbook/)
+<u>변수선언</u>
 
-## Why Jekyll with GitBook
+var에는 여러 단점이 있다. (함수 레벨 스코프 지원하기에 의도치않게 전역 변수가 선언되어 심각한 부작용 발생 가능)
 
-GitBook is an amazing frontend style to present and organize contents (such as book chapters
-and blogs) on Web. The typical to deploy GitBook at [Github Pages][1]
-is building HTML files locally and then push to Github repository, usually to the `gh-pages`
-branch. It's quite annoying to repeat such workload and make it hard for people do version
-control via git for when there are generated HTML files to be staged in and out.
+var score: 자동으로 undefined  할당(암묵적 초기화)
 
-This theme takes style definition out of generated GitBook site and provided the template
-for Jekyll to rendering markdown documents to HTML, thus the whole site can be deployed
-to [Github Pages][1] without generating and uploading HTML bundle every time when there are
-changes to the original repo.
+referenceerror - 식별자를 통해 값dmf 참조하려 했지만 등록된 식별자를 찾을 수 없을 때 발생하는 에러
 
-## How to Get Started
+<u>변수호이스팅</u>
 
-This theme can be used just as other [Jekyll themes][1] and support [remote theme][12],
-see [the official guide][13] as well.
+: 변수 선언문이 코드의 선두로 끌어올려진 것처럼 동작하는 자바스크립트 고유의 특징
 
-You can introduce this jekyll theme into your own site by either
-
-- [Fork][3] this repository and add your markdown posts to the `_posts` folder.
-- Use as a remote theme in your [`_config.yml`][14](just like what we do for this
-  site itself),
-
-```yaml
-remote_theme: sighingnow/jekyll-gitbook
+```
+console.log(score);
+var score;
+// 참조에러가 발생하지 않고 undefined 출력 
 ```
 
-### Deploy Locally with Jekyll Serve
+```
+console.log(score);
 
-This theme can be ran locally using Ruby and Gemfiles.
+score = 50;
+score = 80;
 
-[Testing your GitHub Pages site locally with Jekyll](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll) - GitHub
-
-## Full-text search
-
-The search functionality in jekyll-gitbook theme is powered by the [gitbook-plugin-search-pro][5] plugin and is enabled by default.
-
-[https://sighingnow.github.io/jekyll-gitbook/?q=generated](https://sighingnow.github.io/jekyll-gitbook/?q=generated)
-
-## Code highlight
-
-The code highlight style is configurable the following entry in `_config.yaml`:
-
-```yaml
-syntax_highlighter_style: colorful
+var score;
+console.log(scrore);
 ```
 
-The default code highlight style is `colorful`, the full supported styles can be found from [the rouge repository][6]. Customized
-style can be added to [./assets/gitbook/rouge/](./assets/gitbook/rouge/).
+결과값은 80이 나온다. (이유 = 변수 호이스팅을 통해 var score;가 맨 앞으로 올려짐)
 
-## How to generate TOC
+```
+var score;
+console.log(score);
 
-The jekyll-gitbook theme leverages [jekyll-toc][4] to generate the *Contents* for the page.
-The TOC feature is not enabled by default. To use the TOC feature, modify the TOC
-configuration in `_config.yml`:
+score = 50;
+score = 80;
 
-```yaml
-toc:
-    enabled: true
-    h_min: 1
-    h_max: 3
+console.log(score);```
+
+50이 저장되어 있던 메모리 공간을 지우고 그 메모리 공간에 재할당 값 80을 새롭게 저장x
+=> 새로운 메모리 공간을 확보하고 그 메모리 공간에 숫자 값 80을 저장한다. 
 ```
 
-## Google Analytics, etc.
+<u>변수 이름</u>
 
-The jekyll-gitboook theme supports embedding the [Google Analytics][7], [CNZZ][8] and [Application Insights][9] website analytical tools with the following
-minimal configuration in `_config.yaml`:
+- var person, val1, first_name; 쉼표(,)로 한 번에 여러개 선언 가능but 가독성이 나쁘다. 
 
-```yaml
-tracker:
-  google_analytics: "<YOUR GOOGLE ANALYTICS KEY, e.g, UA-xxxxxx-x>"
+- 첫 글자가 숫자가 오면 안되며 변수이름으로 '-' 표시를 쓰면 안된다
+
+- 대소문자를 구별하므로 다음 둘은 다르다
+
+```
+var firstname;
+var Firstname;
 ```
 
-Similarly, CNZZ can be added with the following configuration in `_config.yaml`
 
-```yaml
-tracker:
-  cnzz: "<YOUR CNZZ ANALYTICS KEY, e.g., xxxxxxxx>"
+
+# 05. 표현식과 문
+
+변수에 할당되는 것은 값이다
+
+```
+var sum = 10+20;
+// 변수에는 10+20이 평가되어 생성된 숫자 값 30이 할당된다. 
 ```
 
-Application Insights can be added with the following configuration in `_config.yaml`
 
-```yaml
-tracker:
-  application_insights: "<YOUR APPLICATION INSIGHTS CONNECTION STRING>"
+
+<u>리터럴</u>
+
+사람이 이해할 수 있는 숫자 또는 약속된 기호를 사용해 값을 생성하는 표기법
+
+=  즉 사람이 이해할 수 있는 문자 또는 미리 약속된 기호로 표기된 코드
+
+ex) 정수 리터럴, 2진수 리터럴, null 리터럴 등등
+
+
+
+<u>표현식</u>
+
+값으로 평가될 수 있는 문으로 새로운 값 생성/기존 값 참조
+
+var score = 50+50 
+
+50+50 리터럴과 연산자로 이뤄져 있다. 숫자 100을 생성하므로 표현식이다.
+
+즉 값으로 평가될 수 있는 문은 모두 표현식이다. 
+
+<u>문</u>
+
+프로그램을 구성하는 기본 단위이자 최소 실행 단위, 컴퓨터에 내리는 명령
+
+<u>문을 구성하는 토큰</u>
+
+문법적인 의미를 가지며 문법적으로 더 이상 나눌 수 없는 코드의 기본 요소
+
+ex) 반복문을 실행하면 특정 코드 블록이 반복 실행된다. 
+
+
+
+문 
+
+- 표현식인 문(값으로 평가될 수 있음) 
+- 표현식이 아닌 문(값으로 평가 x)
+
+```
+//표현식이 아닌 문은 값처럼 사용할 수 없다. 
+var foo = var x;
+
+var foo = if (x>1);// syntaxerror
+
+// 표현식인 문은 값처럼 사용할 수 있다. 
+
+var foo = x = 100;
+
+console.log (foo); //100
+
 ```
 
-## Disqus comments
 
-[Disqus](https://disqus.com/) comments can be enabled by adding the following configuration in `_config.yaml`:
 
-```yaml
-disqushandler: "<YOUR DISQUS SHORTNAME>"
+# 06장. 데이터 타입
+
+<u>데이터 타입</u>
+
+- 값의 종류
+
+- 자바스크립트의 숫자 타입은 정수만을 위한 타입이 없고 <u>모든 수를 실수</u>로 처리한다. 
+
+```
+정수로 표시되도 사실은 실수!
+console.log(1===1.0) // true
 ```
 
-## Extra StyleSheet or Javascript elements
+숫자 타입은 추가적으로 세 가지 특별한 값도 표현 가능
 
-You can add extra CSS or JavaScript references using configuration collections:
+- console.log(10/0); //Infinity
+- console.log(10/-0);//-Infinity
+- console.log(1*'String');//NaN(대소문자 구별 필수)
 
-- extra_css: for additional style sheets. If the url does not start by http, the path must be relative to the root of the site, without a starting `/`.
-- extra_header_js: for additional scripts to be included in the `<head>` tag, after the `extra_css` has been added. If the url does not start by http, the path must be relative to the root of the site, without a starting `/`.
-- extra_footer_js: for additional scripts to be included at the end of the HTML document, just before the site tracking script. If the url does not start by http, the path must be relative to the root of the site, without a starting `/`.
 
-## Customizing font settings
 
-The fonts can be customized by modifying the `.book.font-family-0` and `.book.font-family-1` entry in [`./assets/gitbook/custom.css`][10],
+문자열)  ' ', " ", ``으로 감싸는데 만약 감싸지 않으면 스페이스 같은 공백 문자도 포함 시킬 수 없다.
 
-```css
-.book.font-family-0 {
-    font-family: Georgia, serif;
-}
-.book.font-family-1 {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
+표현식을 삽입하려면 ${} 로 표현식을 감싼다.
+
+이때 표현식의 평가결과가 문자열이 아니더라도 문자열로 <u>타입이 강제로 변환</u>되어 삽입된다. 
+
+```
+예시)
+
+console.log(` 1+2 = ${1+2}``); // 1+2 =3
+
+표현식 삽입은 반드시 템플릿 리터럴(``` `)내에서 사용해야한다
+
+console.log(`'1+2 = ${1+2}'`); // 1+2 = ${1+2}
 ```
 
-## Tips, Warnings and Dangers blocks
+<u>심벌</u>
 
-The jekyll-gitbook theme supports customized kramdown attributes (`{: .block-tip }`, `{: .block-warning }`,
-`{: .block-danger }`) like that displayed in [the discord.js website][11]. The marker can be used like
+- 변경 불가능한 원시 타입의 값이다.
 
-```markdown
-> ##### TIP
->
-> This guide is last tested with @napi-rs/canvas^0.1.20, so make sure you have
-> this or a similar version after installation.
-{: .block-tip }
-```
+- 다른 값과 절대 중복되지 않은 유일무이한 값이다. 
 
-Rendered page can be previewed from
 
-[https://sighingnow.github.io/jekyll-gitbook/jekyll/2022-06-30-tips_warnings_dangers.html](https://sighingnow.github.io/jekyll-gitbook/jekyll/2022-06-30-tips_warnings_dangers.html)
 
-## Cover image inside pages
+<u>데이터 타입이 필요한 이유</u>
 
-The jekyll-gitbook theme supports adding a cover image to a specific page by adding
-a `cover` field to the page metadata:
+- 값을 저장할 때 확보해야하는 메모리 공간의 크기를 결정하기 위해
+- 값을 차조할 대 한 번에 읽어들여야 할 메모리 간의 크기를 결정하기 위해
+- 메모리에서 읽어 들인 2진수를 어떻게 해석할지 결정하기 위해
 
-```diff
-  ---
-  title: Page with cover image
-  author: Tao He
-  date: 2022-05-24
-  category: Jekyll
-  layout: post
-+ cover: /assets/jekyll-gitbook/dinosaur.gif
-  ---
-```
+<u>동적 타이핑</u>
 
-The effect can be previewed from
+- 자바스크립트는 정적 타입 언어와 다르게 변수를 선언할 때 타입 선언을 하지 않는다. 
 
-[https://sighingnow.github.io/jekyll-gitbook/jekyll/2022-05-24-page_cover.html](https://sighingnow.github.io/jekyll-gitbook/jekyll/2022-05-24-page_cover.html)
+- 자바스크립트의 변수는 선언이 아닌 할당에 의해 타입이 결정된다. 그리고 재할당에 의해 변수의 타입은 언제든지 동적으로 변할 수 있다. 이러한 특징을 동적타이핑이라하고 js는 동적 타입언어라고 한다. 
 
-## License
 
-This work is open sourced under the Apache License, Version 2.0.
 
-Copyright 2019 Tao He.
+<u>변수는 타입을 가질까?</u>
 
-[1]: https://pages.github.com
-[2]: https://pages.github.com/themes
-[3]: https://github.com/sighingnow/jekyll-gitbook/fork
-[4]: https://github.com/allejo/jekyll-toc
-[5]: https://github.com/gitbook-plugins/gitbook-plugin-search-pro
-[6]: https://github.com/rouge-ruby/rouge/tree/master/lib/rouge/themes
-[7]: https://analytics.google.com/analytics/web/
-[8]: https://www.cnzz.com/
-[9]: https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview
-[10]: https://github.com/sighingnow/jekyll-gitbook/blob/master/gitbook/custom.css
-[11]: https://discordjs.guide/popular-topics/canvas.html#setting-up-napi-rs-canvas
-[12]: https://rubygems.org/gems/jekyll-remote-theme
-[13]: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/adding-a-theme-to-your-github-pages-site-using-jekyll
-[14]: https://github.com/sighingnow/jekyll-gitbook/blob/master/_config.yml
+NO, but 변수에 할당되어 있는 값에 의해 변수의 타입이 동적으로 결정된다고 표현하는 것이 적절
